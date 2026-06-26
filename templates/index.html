@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCADE // Duel Station</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 28px 0 24px;
+  }
+  @media (max-width: 700px) { .game-grid { grid-template-columns: 1fr; } }
+
+  .section-label {
+    font-size: 10px; letter-spacing: 3px; color: var(--phosphor-dim);
+    border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 16px;
+  }
+
+  .game-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 20px 16px 16px;
+    text-align: center;
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(143,179,63,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .game-card:hover { border-color: var(--phosphor); background: #1e241a; }
+
+  .game-icon { font-size: 28px; letter-spacing: -2px; }
+  .game-name { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--phosphor); }
+  .game-desc { font-size: 10.5px; color: var(--phosphor-dim); line-height: 1.65; }
+  .game-tag { font-size: 9px; letter-spacing: 1.5px; color: var(--phosphor-dim);
+    border: 1px solid var(--line-soft); display: inline-block; padding: 2px 6px; }
+
+  .game-scores {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 10px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 10px;
+  }
+  .game-scores .s { color: var(--paper); font-weight: 700; font-size: 16px; display: block; }
+  .game-scores .lbl { color: var(--phosphor-dim); font-size: 9px; }
+  .game-scores .vsep { color: var(--line); font-size: 9px; letter-spacing: 1px; align-self: center; }
+
+  .play-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--phosphor-dim);
+    color: var(--phosphor);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .play-btn:hover { background: var(--phosphor); color: var(--bg); border-color: var(--phosphor); }
+
+  .total-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--surface); border: 1px solid var(--line);
+    padding: 10px 18px; margin-bottom: 22px; font-size: 11px;
+  }
+  .total-bar .tot-score { font-size: 20px; font-weight: 700; }
+  .tot-p1 { color: var(--p1); }
+  .tot-p2 { color: var(--p2); }
+  .tot-label { color: var(--phosphor-dim); font-size: 10px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="scope">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◢◤</span>
+      <h1>ARCADE<span class="brand-sub">// DUEL STATION · 9 JEUX</span></h1>
+    </div>
+    <div style="font-size:11px; color:var(--phosphor-dim); letter-spacing:1px;">2 JOUEURS · LOCAL</div>
+  </header>
+
+  <!-- Tableau des scores globaux -->
+  <div class="total-bar">
+    <div>
+      <div class="tot-label">SCORE GLOBAL J1</div>
+      <div class="tot-score tot-p1" id="global-p1">0</div>
+    </div>
+    <div style="color:var(--line); font-size:11px; letter-spacing:2px;">TOTAL VICTOIRES</div>
+    <div>
+      <div class="tot-label">SCORE GLOBAL J2</div>
+      <div class="tot-score tot-p2" id="global-p2">0</div>
+    </div>
+  </div>
+
+  <!-- ARCADE -->
+  <div class="section-label">▸ ARCADE</div>
+  <div class="game-grid">
+    <div class="game-card">
+      <div class="game-icon">◢ ◣</div>
+      <div class="game-name">TANKS</div>
+      <div class="game-desc">Artillerie tour par tour.<br>Visez, chargez, tirez.</div>
+      <div class="game-tag">TOUR PAR TOUR · VENT</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="tanks-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="tanks-p2">0</span></div>
+      </div>
+      <a href="/tanks" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">▐ ▌</div>
+      <div class="game-name">PONG</div>
+      <div class="game-desc">Raquettes face à face.<br>Premier à 7 points.</div>
+      <div class="game-tag">TEMPS RÉEL · VITESSE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="pong-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="pong-p2">0</span></div>
+      </div>
+      <a href="/pong" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">≋ ≋</div>
+      <div class="game-name">SNAKE DUEL</div>
+      <div class="game-desc">Deux serpents, une arène.<br>Forcez le crash.</div>
+      <div class="game-tag">TEMPS RÉEL · GRILLE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="snake-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="snake-p2">0</span></div>
+      </div>
+      <a href="/snake" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">✈ ✈</div>
+      <div class="game-name">BOMBARDIER</div>
+      <div class="game-desc">Deux avions, deux tranchées.<br>Larguez les bombes en premier.</div>
+      <div class="game-tag">TEMPS RÉEL · BOMBES</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="bomber-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="bomber-p2">0</span></div>
+      </div>
+      <a href="/bomber" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">⊟ ⊟</div>
+      <div class="game-name">BREAKOUT DUEL</div>
+      <div class="game-desc">Chacun sa moitié de briques.<br>Videz votre camp en premier.</div>
+      <div class="game-tag">TEMPS RÉEL · BRIQUES</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="breakout-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="breakout-p2">0</span></div>
+      </div>
+      <a href="/breakout" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">⟵ ⟶</div>
+      <div class="game-name">TIR À LA CORDE</div>
+      <div class="game-desc">Mashing frénétique de touches.<br>Tirez la ligne dans votre camp.</div>
+      <div class="game-tag">MASHING · RÉFLEXES</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="tug-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="tug-p2">0</span></div>
+      </div>
+      <a href="/tug" class="play-btn">JOUER →</a>
+    </div>
+  </div>
+
+  <!-- STRATÉGIE -->
+  <div class="section-label" style="margin-top:24px;">▸ STRATÉGIE</div>
+  <div class="game-grid">
+    <div class="game-card">
+      <div class="game-icon">⬡ ⬡</div>
+      <div class="game-name">PUISSANCE 4</div>
+      <div class="game-desc">Grille 7×6, alignez 4 jetons.<br>Classique indémodable.</div>
+      <div class="game-tag">TOUR PAR TOUR · GRILLE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="connect4-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="connect4-p2">0</span></div>
+      </div>
+      <a href="/connect4" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">⊕ ⊕</div>
+      <div class="game-name">GOMOKU</div>
+      <div class="game-desc">Grille 15×15, alignez 5.<br>Bloquez et attaquez.</div>
+      <div class="game-tag">TOUR PAR TOUR · STRATÉGIE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="gomoku-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="gomoku-p2">0</span></div>
+      </div>
+      <a href="/gomoku" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">◎ ◎</div>
+      <div class="game-name">DUEL DE FLÉCHETTES</div>
+      <div class="game-desc">Visez la cible en mouvement.<br>501 points, décompte alterné.</div>
+      <div class="game-tag">TOUR PAR TOUR · PRÉCISION</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="darts-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="darts-p2">0</span></div>
+      </div>
+      <a href="/darts" class="play-btn">JOUER →</a>
+    </div>
+  </div>
+
+  <footer class="legend" style="border-top:1px solid var(--line); padding-top:14px; margin-top:8px;">
+    <span class="legend-item">9 jeux · scores conservés pendant la session</span>
+  </footer>
+
+</div>
+<script>
+const GAME_IDS = {
+  tanks:    ['tanks-p1','tanks-p2'],
+  pong:     ['pong-p1','pong-p2'],
+  snake:    ['snake-p1','snake-p2'],
+  connect4: ['connect4-p1','connect4-p2'],
+  tug:      ['tug-p1','tug-p2'],
+  gomoku:   ['gomoku-p1','gomoku-p2'],
+  bomber:   ['bomber-p1','bomber-p2'],
+  darts:    ['darts-p1','darts-p2'],
+  breakout: ['breakout-p1','breakout-p2'],
+};
+async function loadAll() {
+  let gp1 = 0, gp2 = 0;
+  for (const [g, [id1, id2]] of Object.entries(GAME_IDS)) {
+    try {
+      const r = await fetch(`/api/scores/${g}`);
+      const d = await r.json();
+      document.getElementById(id1).textContent = d.player1;
+      document.getElementById(id2).textContent = d.player2;
+      gp1 += d.player1; gp2 += d.player2;
+    } catch(e) {}
+  }
+  document.getElementById('global-p1').textContent = gp1;
+  document.getElementById('global-p2').textContent = gp2;
+}
+loadAll();
+</script>
+</body>
+</html>
