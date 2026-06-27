@@ -19,7 +19,7 @@ SCORES = {
 def index():
     return render_template("index.html")
 
-for _g in ["tanks", "pong", "snake", "connect4", "tug", "gomoku", "bomber", "darts", "breakout", "mortar", "radar"]:
+for _g in ["tanks", "pong", "snake", "connect4", "tug", "gomoku", "bomber", "darts", "breakout", "mortar", "radar", "trench", "minesweeper", "breaker", "supply"]:
     def _make_view(g):
         def view():
             return render_template(f"{g}.html")
