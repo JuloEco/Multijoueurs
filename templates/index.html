@@ -92,7 +92,7 @@
   <header class="topbar">
     <div class="brand">
       <span class="brand-mark">◢◤</span>
-      <h1>ARCADE<span class="brand-sub">// DUEL STATION · 9 JEUX</span></h1>
+      <h1>ARCADE<span class="brand-sub">// DUEL STATION · 11 JEUX</span></h1>
     </div>
     <div style="font-size:11px; color:var(--phosphor-dim); letter-spacing:1px;">2 JOUEURS · LOCAL</div>
   </header>
@@ -235,8 +235,92 @@
     </div>
   </div>
 
+  <!-- NOUVEAUX JEUX -->
+  <div class="section-label" style="margin-top:24px;">▸ EN COURS DE DÉVELOPPEMENT</div>
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-icon">💨 💨</div>
+      <div class="game-name">MORTAR DUEL</div>
+      <div class="game-desc">Tir indirect à l'aveugle.<br>La fumée révèle le terrain ennemi.</div>
+      <div class="game-tag">TOUR PAR TOUR · BROUILLARD</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="mortar-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="mortar-p2">0</span></div>
+      </div>
+      <a href="/mortar" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card">
+      <div class="game-icon">◉ ◉</div>
+      <div class="game-name">RADAR PING</div>
+      <div class="game-desc">Deux sous-marins dans le noir.<br>Sonar → distance · Torpille → case exacte.</div>
+      <div class="game-tag">TOUR PAR TOUR · SONAR</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="radar-p1">0</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="radar-p2">0</span></div>
+      </div>
+      <a href="/radar" class="play-btn">JOUER →</a>
+    </div>
+
+    <div class="game-card" style="opacity:0.65;">
+      <div class="game-icon">▶▶ ▶▶</div>
+      <div class="game-name">TRENCH RUN</div>
+      <div class="game-desc">Course d'obstacles en scrolling.<br>Deux couloirs côte à côte, survivez le plus longtemps.</div>
+      <div class="game-tag">TEMPS RÉEL · SURVIE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="trench-p1">—</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="trench-p2">—</span></div>
+      </div>
+      <span class="play-btn" style="opacity:0.4;cursor:not-allowed;">BIENTÔT</span>
+    </div>
+
+    <div class="game-card" style="opacity:0.65;">
+      <div class="game-icon">✱ ✱</div>
+      <div class="game-name">MINESWEEPER DUEL</div>
+      <div class="game-desc">Même grille, chacun démine sa moitié.<br>Le premier à sauter sur une mine perd.</div>
+      <div class="game-tag">TOUR PAR TOUR · MINES</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="mines-p1">—</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="mines-p2">—</span></div>
+      </div>
+      <span class="play-btn" style="opacity:0.4;cursor:not-allowed;">BIENTÔT</span>
+    </div>
+
+    <div class="game-card" style="opacity:0.65;">
+      <div class="game-icon">▼ ▼</div>
+      <div class="game-name">SUPPLY DROP</div>
+      <div class="game-desc">Des caisses tombent du ciel.<br>Attrapez-en plus que l'adversaire avec votre zone.</div>
+      <div class="game-tag">TEMPS RÉEL · COLLECTE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="supply-p1">—</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="supply-p2">—</span></div>
+      </div>
+      <span class="play-btn" style="opacity:0.4;cursor:not-allowed;">BIENTÔT</span>
+    </div>
+
+    <div class="game-card" style="opacity:0.65;">
+      <div class="game-icon">? ? ? ?</div>
+      <div class="game-name">CODE BREAKER</div>
+      <div class="game-desc">Mastermind en duel simultané.<br>Devinez le code adverse en moins de tentatives.</div>
+      <div class="game-tag">TOUR PAR TOUR · LOGIQUE</div>
+      <div class="game-scores">
+        <div><span class="lbl">J1</span><span class="s" id="code-p1">—</span></div>
+        <div class="vsep">VICTOIRES</div>
+        <div><span class="lbl">J2</span><span class="s" id="code-p2">—</span></div>
+      </div>
+      <span class="play-btn" style="opacity:0.4;cursor:not-allowed;">BIENTÔT</span>
+    </div>
+
+  </div>
+
   <footer class="legend" style="border-top:1px solid var(--line); padding-top:14px; margin-top:8px;">
-    <span class="legend-item">9 jeux · scores conservés pendant la session</span>
+    <span class="legend-item">11 jeux disponibles · 4 en développement · scores conservés pendant la session</span>
   </footer>
 
 </div>
@@ -251,16 +335,21 @@ const GAME_IDS = {
   bomber:   ['bomber-p1','bomber-p2'],
   darts:    ['darts-p1','darts-p2'],
   breakout: ['breakout-p1','breakout-p2'],
+  mortar:   ['mortar-p1','mortar-p2'],
+  radar:    ['radar-p1','radar-p2'],
 };
 async function loadAll() {
   let gp1 = 0, gp2 = 0;
   for (const [g, [id1, id2]] of Object.entries(GAME_IDS)) {
     try {
       const r = await fetch(`/api/scores/${g}`);
+      if (!r.ok) continue;
       const d = await r.json();
-      document.getElementById(id1).textContent = d.player1;
-      document.getElementById(id2).textContent = d.player2;
-      gp1 += d.player1; gp2 += d.player2;
+      const s1 = parseInt(d.player1) || 0;
+      const s2 = parseInt(d.player2) || 0;
+      document.getElementById(id1).textContent = s1;
+      document.getElementById(id2).textContent = s2;
+      gp1 += s1; gp2 += s2;
     } catch(e) {}
   }
   document.getElementById('global-p1').textContent = gp1;
