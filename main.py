@@ -7,7 +7,7 @@ from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
-GAMES = ["tanks", "pong", "snake", "connect4", "tug", "gomoku", "bomber", "darts", "breakout"]
+GAMES = ["tanks", "pong", "snake", "connect4", "tug", "gomoku", "bomber", "darts", "breakout", "mortar", "radar", "trench", "minesweeper", "breaker", "supply"]
 
 SCORES = {
     game: {"player1": 0, "player2": 0, "rounds_played": 0}
